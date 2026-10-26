@@ -6,12 +6,7 @@ namespace LucaCermenati\SimpleCsvImport;
 
 use LucaCermenati\SimpleCsvImport\Models\ImportReport;
 
-/**
- * What CsvImport::run() tells the caller about an upload: either validation
- * rejected it and the invalid ImportReport says why, or it was clean and is
- * queued. A queued upload has no report yet; the worker records one when it is
- * done.
- */
+/** What run() returns: validation rejected the upload (importReport says why), or it is queued. */
 final readonly class ImportOutcome
 {
     public function __construct(
@@ -24,16 +19,14 @@ final readonly class ImportOutcome
         return $this->importReport !== null;
     }
 
-    /**
-     * The one line the user reads after uploading, e.g. "413,241 rows, 14 failed. ..."
-     */
+    /** The one line the user reads after uploading. */
     public function message(): string
     {
         if ($this->importReport === null) {
             return $this->validation->summary().' Import queued.';
         }
 
-        // A file that could not be validated at all has no failing-rows CSV; its reason says what was wrong.
+        // Rejected outright: no failing-rows CSV, the reason says why.
         if ($this->importReport->report_path === null) {
             return (string) $this->importReport->reason;
         }

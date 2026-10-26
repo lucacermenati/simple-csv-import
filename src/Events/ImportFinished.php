@@ -10,11 +10,7 @@ use LucaCermenati\SimpleCsvImport\ImportRun;
 use LucaCermenati\SimpleCsvImport\ImportStatus;
 use LucaCermenati\SimpleCsvImport\Models\ImportReport;
 
-/**
- * A queued import ended, succeeded or failed ($report->status); the stored upload
- * is deleted and the report recorded. Dispatched in the queue worker: listen to
- * notify $run->userId, clear caches, and so on.
- */
+/** Dispatched in the worker when a queued import ends; the upload is deleted and the report recorded. */
 final class ImportFinished
 {
     use Dispatchable;

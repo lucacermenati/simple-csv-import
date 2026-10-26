@@ -7,12 +7,8 @@ namespace LucaCermenati\SimpleCsvImport;
 use Illuminate\Support\Facades\DB;
 
 /**
- * Resolves a code a CSV cell carries to the id of the row that holds it in a
- * given table column ("regions.code", "countries.iso"), case-insensitively.
- * Each column's code => id map is loaded once per instance instead of a query
- * per row over a million-row file. The service is scoped in the container, so
- * the validator and the import share one instance per request and per queue
- * job, the way every row of one file does.
+ * Resolves a code to the id of the row holding it in "table.column", case-insensitively.
+ * Each map is loaded once per instance; the service is scoped per request and job.
  */
 final class CodeLookups
 {

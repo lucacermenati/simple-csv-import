@@ -11,11 +11,7 @@ use LucaCermenati\SimpleCsvImport\CsvImport;
 use LucaCermenati\SimpleCsvImport\ImportRun;
 use Throwable;
 
-/**
- * Upserts one chunk of a queued CSV import. The chunks of a file run as a chain
- * closed by FinishCsvImport, so a failing chunk stops the import and records the
- * failure.
- */
+/** One chunk of a chained import; a failing chunk ends the import. */
 final class ImportCsvChunk implements ShouldQueue
 {
     use Queueable;

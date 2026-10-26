@@ -9,10 +9,7 @@ use Illuminate\Foundation\Queue\Queueable;
 use LucaCermenati\SimpleCsvImport\CsvImport;
 use LucaCermenati\SimpleCsvImport\ImportRun;
 
-/**
- * The last job of an import chain: runs the import's afterImport() hook, deletes
- * the stored upload and records the succeeded report (CsvImport::finish()).
- */
+/** Closes the chain: afterImport(), delete the upload, record the succeeded report. */
 final class FinishCsvImport implements ShouldQueue
 {
     use Queueable;

@@ -7,16 +7,8 @@ namespace LucaCermenati\SimpleCsvImport;
 use RuntimeException;
 
 /**
- * Checks an uploaded CSV before anything is imported, and writes the rows that
- * would fail to a report CSV.
- *
- * A row fails when a code is not found in the table column it must match, when
- * a required cell is empty, when a positive-number cell is not above zero, when
- * a numeric cell is not a number, or when an enum cell has an unknown value.
- * The rules themselves live on the import as lists; this class only applies
- * them, reading the file once and holding nothing per row in memory, and never
- * calls map(). A unique key that occurs twice in a file is not a failure: the
- * import upserts both and the last row wins.
+ * Applies an import's rules to a file, streaming it once, and writes the failing
+ * rows to a report CSV. A duplicate unique key is not a failure: the last row wins.
  */
 final class CsvValidator
 {
@@ -62,7 +54,7 @@ final class CsvValidator
 
     /**
      * @param  array<string, ?string>  $row
-     * @return array{Verdict, string}|null the verdict and the details for the report, or null for a good row
+     * @return array{Verdict, string}|null verdict and details, or null for a good row
      */
     private function check(CsvImport $import, array $row): ?array
     {
@@ -102,7 +94,6 @@ final class CsvValidator
             }
         }
 
-        // Case-insensitive, like the ENUM columns the values end up in.
         foreach ($import->enumColumns() as $column => $enum) {
             $cell = CsvImport::normalize($row[$column] ?? null);
             $allowed = array_map(fn (\BackedEnum $case) => (string) $case->value, $enum::cases());

@@ -6,10 +6,7 @@ namespace LucaCermenati\SimpleCsvImport\Tests\Fixtures;
 
 use LucaCermenati\SimpleCsvImport\CsvImport;
 
-/**
- * A city per row, placed in its country by ISO code: the smallest import that
- * exercises every rule.
- */
+/** The smallest import that exercises every rule. */
 class CityImport extends CsvImport
 {
     public function modelClass(): string

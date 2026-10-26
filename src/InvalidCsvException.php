@@ -6,8 +6,5 @@ namespace LucaCermenati\SimpleCsvImport;
 
 use RuntimeException;
 
-/**
- * The uploaded file cannot be validated at all: unreadable, or its header row
- * does not belong to the import it was handed to.
- */
+/** The file cannot be validated at all: unreadable, or the wrong header row. */
 class InvalidCsvException extends RuntimeException {}

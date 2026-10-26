@@ -13,11 +13,7 @@ use LucaCermenati\SimpleCsvImport\ImportStatus;
 use LucaCermenati\SimpleCsvImport\ValidationResult;
 
 /**
- * One CSV upload that was rejected, imported or failed (ImportStatus): which
- * import, how many rows it held and how many failed validation. A failed import
- * carries the exception message as its reason, a rejected upload why it was
- * rejected. Only an upload with failing rows has a report CSV, listing them with
- * their line number and the reason; deleting a report deletes its file.
+ * One CSV upload: rejected, succeeded or failed. Deleting a report deletes its file.
  *
  * @property int $id
  * @property class-string<CsvImport> $import
@@ -64,17 +60,12 @@ class ImportReport extends Model
         ];
     }
 
-    /**
-     * The one-line summary a user reads, e.g. "12 rows, 2 failed."
-     */
+    /** e.g. "12 rows, 2 failed." */
     protected function summary(): Attribute
     {
         return Attribute::get(fn () => (new ValidationResult($this->total_rows, $this->counts ?? []))->summary());
     }
 
-    /**
-     * A fresh instance of the import that produced this report.
-     */
     public function importer(): CsvImport
     {
         return app($this->import);

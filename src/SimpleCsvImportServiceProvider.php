@@ -13,8 +13,7 @@ class SimpleCsvImportServiceProvider extends ServiceProvider
     {
         $this->mergeConfigFrom(__DIR__.'/../config/simple-csv-import.php', 'simple-csv-import');
 
-        // One set of code => id maps per request or queue job, shared by the
-        // validator and the import; see CodeLookups.
+        // One set of lookups per request or queue job.
         $this->app->scoped(CodeLookups::class);
     }
 

@@ -8,9 +8,8 @@ use Generator;
 use Illuminate\Support\Str;
 
 /**
- * Streams a CSV row by row, keyed by its slugged header ("Risk Category" is
- * keyed "risk_category"). The delimiter is the candidate that occurs most often
- * in the header line, outside quotes; a comma when none does.
+ * Streams a CSV keyed by slugged header ("Risk Category" => "risk_category"). The
+ * delimiter is the candidate that occurs most in the header line, outside quotes.
  */
 final class CsvReader
 {
@@ -39,7 +38,7 @@ final class CsvReader
         $unquoted = preg_replace('/"[^"]*"/', '', $line) ?? $line;
         $counts = array_map(fn (string $delimiter) => substr_count($unquoted, $delimiter), array_combine(self::DELIMITERS, self::DELIMITERS));
 
-        // The first candidate wins a tie, so a line without any delimiter yields a comma.
+        // A tie goes to the first candidate, so no delimiter means a comma.
         return (string) array_search(max($counts), $counts, true);
     }
 
@@ -48,11 +47,7 @@ final class CsvReader
         return $this->delimiter;
     }
 
-    /**
-     * Header cells as the import sees them, e.g. "Risk Category" becomes "risk_category".
-     *
-     * @return list<string>
-     */
+    /** @return list<string> */
     public function headers(): array
     {
         return $this->headers;
@@ -87,9 +82,8 @@ final class CsvReader
     }
 
     /**
-     * Yields line number => row. The header is line 1, so the first row is line 2.
-     * Blank lines are skipped; short rows are padded with null, long rows truncated.
-     * Given a chunk, seeks to its first row and stops after its last.
+     * Yields line => row; the header is line 1. Blank lines are skipped, short rows
+     * padded with null, long rows truncated. Given a chunk, seeks to its first row.
      *
      * @return Generator<int, array<string, ?string>>
      */
@@ -128,8 +122,7 @@ final class CsvReader
     }
 
     /**
-     * Cuts the data rows into runs of at most $rows rows, reading the file once.
-     * Blank lines count for nothing, so a chunk holds $rows rows the import will see.
+     * Runs of at most $rows non-blank rows, from one pass over the file.
      *
      * @return list<CsvChunk>
      */

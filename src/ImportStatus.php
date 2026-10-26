@@ -4,17 +4,14 @@ declare(strict_types=1);
 
 namespace LucaCermenati\SimpleCsvImport;
 
-/**
- * How an upload ended. Every upload gets an ImportReport row when validation
- * rejects it, when its import succeeds and when it fails.
- */
+/** How an upload ended; every upload gets an ImportReport. */
 enum ImportStatus: string
 {
-    /** The file could not be validated or had failing rows; nothing was imported. */
+    /** Nothing was imported. */
     case Invalid = 'invalid';
 
     case Succeeded = 'succeeded';
 
-    /** A chunk job threw; the rows before it stay written, the reason is on the report. */
+    /** A chunk threw; earlier chunks stay written. */
     case Failed = 'failed';
 }

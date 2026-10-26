@@ -4,10 +4,7 @@ declare(strict_types=1);
 
 namespace LucaCermenati\SimpleCsvImport;
 
-/**
- * Why a CSV row fails validation. The string values are written to the report
- * CSV, so they are part of the output format.
- */
+/** Why a row fails. The values are written to the report CSV, so they are part of its format. */
 enum Verdict: string
 {
     case MissingRequired = 'missing_required';
