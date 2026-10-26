@@ -1,10 +1,22 @@
 {
     "name": "lucacermenati/simple-csv-import",
     "description": "Validate a CSV upload in the request, import it in chunks on the queue, and record every upload as a report. An import is a description of its file and table.",
-    "keywords": ["laravel", "csv", "import", "queue"],
+    "keywords": [
+        "laravel",
+        "csv",
+        "import",
+        "queue"
+    ],
     "license": "MIT",
+    "homepage": "https://github.com/lucacermenati/simple-csv-import",
+    "support": {
+        "issues": "https://github.com/lucacermenati/simple-csv-import/issues",
+        "source": "https://github.com/lucacermenati/simple-csv-import"
+    },
     "authors": [
-        {"name": "Luca Cermenati"}
+        {
+            "name": "Luca Cermenati"
+        }
     ],
     "require": {
         "php": "^8.3",
@@ -47,6 +59,5 @@
     "config": {
         "sort-packages": true
     },
-    "minimum-stability": "dev",
     "prefer-stable": true
 }
