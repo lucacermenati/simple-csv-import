@@ -1,0 +1,52 @@
+{
+    "name": "lucacermenati/simple-csv-import",
+    "description": "Validate a CSV upload in the request, import it in chunks on the queue, and record every upload as a report. An import is a description of its file and table.",
+    "keywords": ["laravel", "csv", "import", "queue"],
+    "license": "MIT",
+    "authors": [
+        {"name": "Luca Cermenati"}
+    ],
+    "require": {
+        "php": "^8.3",
+        "illuminate/bus": "^12.0",
+        "illuminate/console": "^12.0",
+        "illuminate/contracts": "^12.0",
+        "illuminate/database": "^12.0",
+        "illuminate/events": "^12.0",
+        "illuminate/filesystem": "^12.0",
+        "illuminate/http": "^12.0",
+        "illuminate/queue": "^12.0",
+        "illuminate/support": "^12.0"
+    },
+    "require-dev": {
+        "laravel/pint": "^1.20",
+        "orchestra/testbench": "^10.0",
+        "phpunit/phpunit": "^11.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "LucaCermenati\\SimpleCsvImport\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "LucaCermenati\\SimpleCsvImport\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "LucaCermenati\\SimpleCsvImport\\SimpleCsvImportServiceProvider"
+            ]
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit",
+        "lint": "vendor/bin/pint"
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
